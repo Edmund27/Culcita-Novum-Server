@@ -1,43 +1,40 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  class user extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      user.hasMany(models.listing);
-
+  const user = sequelize.define(
+    "user",
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      surname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      image: DataTypes.STRING,
+      lat: { type: DataTypes.FLOAT, allowNull: false },
+      lng: { type: DataTypes.FLOAT, allowNull: false },
     }
+  );
+  user.associate = function (models) {
+    user.hasMany(models.chat, {
+      foreignKey: "user1Id"
+    });
+    user.hasMany(models.chat, {
+      foreignKey: "user2Id"
+    });
+    user.hasMany(models.listing, {
+      foreignKey: "userId"
+    });
   };
-  user.init({
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    surname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    image: DataTypes.STRING,
-    lat: {type: DataTypes.FLOAT, allowNull: false},
-    lng: {type: DataTypes.FLOAT, allowNull: false},
-  }, {
-    sequelize,
-    modelName: 'user',
-  });
   return user;
 };
