@@ -20,10 +20,10 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id', async (req, res, next) => {
-    const userId = parseInt(req.params.id)
+    const listingId = parseInt(req.params.id)
     try {
-        const listingsByUserId = await Listing.findAll({ where: { userId } })
-        res.send(listingsByUserId)
+        const listingsByListingId = await Listing.findByPk(listingId)
+        res.send(listingsByListingId)
 
     } catch (e) {
         next(e)
