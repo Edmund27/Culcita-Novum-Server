@@ -22,7 +22,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     const listingId = parseInt(req.params.id)
     try {
-        const listingsByListingId = await Listing.findByPk(listingId)
+        const listingsByListingId = await Listing.findByPk(listingId, {
+            include: [{ model: User }, { model: Category }],
+          });
         res.send(listingsByListingId)
 
     } catch (e) {
