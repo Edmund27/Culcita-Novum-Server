@@ -1,1 +1,1 @@
-release: npm run heroku:migrate && npm run heroku:init
+release: bash release.sh
