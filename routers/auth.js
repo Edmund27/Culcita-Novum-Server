@@ -18,7 +18,7 @@ router.post("/login", async (req, res, next) => {
         .send({ message: "Please provide both email and password" });
     }
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email }});
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(400).send({
@@ -74,7 +74,7 @@ router.post("/signup", async (req, res) => {
 router.get("/mypage", authMiddleware, async (req, res) => {
   const user = await User.findOne({
     where: { id: req.user.id },
-    include: [{ model: Listing }],
+    include: [{ model: Listing }], 
   });
 
   if (!user.userId === req.user.id) {
