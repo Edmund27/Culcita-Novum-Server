@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      availability: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
   );
   listing.associate = function (models) {

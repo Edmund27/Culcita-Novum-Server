@@ -43,12 +43,12 @@ router.post("/signup", async (req, res) => {
 
   try {
     const newUser = await User.create({
-      name, 
-      surname, 
+      name,
+      surname,
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
-      image, 
-      lat, 
+      image,
+      lat,
       lng
     });
 
@@ -82,7 +82,7 @@ router.get("/mypage", authMiddleware, async (req, res) => {
   }
 
   delete req.user.dataValues["password"];
-  res.status(200).send({ ...req.user.dataValues, user});
+  res.status(200).send({ ...req.user.dataValues, user });
 });
 
 
@@ -109,9 +109,9 @@ router.post("/create", authMiddleware, async (req, res) => {
     title,
     description,
     image,
+    availability: "available",
     userId: user.id,
     categoryId
-    
   });
 
   delete req.user.dataValues["password"];
@@ -119,7 +119,7 @@ router.post("/create", authMiddleware, async (req, res) => {
     message: "Listing created",
     ...req.user.dataValues,
     newListing,
-   
+
   });
 });
 
