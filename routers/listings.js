@@ -32,4 +32,17 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
+router.get('/user/:id', async (req, res, next) => {
+    const userId = parseInt(req.params.id)
+    try {
+        const listingsByUserId = await User.findByPk(userId, {
+            include: [{ model: Listing }],
+          });
+        res.send(listingsByUserId)
+
+    } catch (e) {
+        next(e)
+    }
+})
+
 module.exports = router;
